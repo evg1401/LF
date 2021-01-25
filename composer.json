@@ -1,0 +1,26 @@
+{
+  "name": "lf001/framework",
+  "description": "The Light Framework.",
+  "keywords": [
+    "framework",
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "EVG1401",
+      "email": "wwvb@rambler.ru"
+    }
+  ],
+  "require": {
+    "gabordemooij/redbean": "dev-master"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "Core\\": "vendor/light/src/Core",
+      "App\\": "App"
+    }
+  }
+}
