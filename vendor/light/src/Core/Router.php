@@ -21,15 +21,10 @@ class Router
     public function matches(): bool
     {
         foreach ($this->routes as $route => $parameters) {
-            if (preg_match("#^" . $route . "#", $this->uri, $matches)) {
+            if (preg_match("#^" . $route . "(\/[A-Za-z0-9]+){0,}?$#", $this->uri, $matches)) {
                 $this->tmp = explode('/', $this->uri);
-
-                if ($matches[0] === $this->tmp[0]) {
-                    $this->route = $route;
-                    $this->internalRouter = $parameters;
-                } else {
-                    View::HttpResponse(404);
-                }
+                $this->route = $route;
+                $this->internalRouter = $parameters;
             }
         }
         $this->explode = explode($this->route . '/', $this->uri);
