@@ -3,6 +3,7 @@
 
 namespace Core\Auth;
 
+use Core\Http\Request;
 use RedBeanPHP\R;
 
 /**
@@ -32,7 +33,7 @@ class Login extends Auth
                 setcookie('username', $find[1]['username']);
 
                 if ($rememberMe === 'yes') {
-                    if ($find[1]['remember_token'] !== null) {
+                    if ($find[1]['remember_token'] !== '') {
 
                         setcookie('rememberToken', $find[1]['remember_token'], time() + $this->cookieExpires);
 
@@ -40,6 +41,9 @@ class Login extends Auth
 
                         $rememberToken = bin2hex(random_bytes(16));
                         setcookie('rememberToken', $rememberToken, time() + $this->cookieExpires);
+                        $addRememberToken = R::load($this->db['table'], $find[1]['id']);
+                        $addRememberToken->remember_token = $rememberToken;
+                        R::store($addRememberToken);
 
                     }
                 }
