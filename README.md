@@ -35,7 +35,7 @@ PHP 7 <=
     {
       public function post($id, $category, $post)
       {
-        $this->view->render('post.php', compact('id', 'category', 'post')); /* метод render подключает файл с представлением, первым аргументом отправляет название файла представления с расширением (php, html и т.д.), (или category/category.php) относительно дирректории App/Views; вторым аргументом передает массив с данными, которые нужно отправить в представление. */
+        $this->view->render('post.php', compact('id', 'category', 'post')); /* метод render подключает файл с представлением, первым аргументом отправляет название файла представления с расширением (php, html, html.twig и т.д.), (или category/category.php) относительно дирректории App/Views; вторым аргументом передает массив с данными, которые нужно отправить в представление. */
       }
 
       public function news($id)
@@ -43,8 +43,8 @@ PHP 7 <=
         $news = new News(); //создаем объект модели
         $text = $news->readNews($id);
         //$news->writeNews($text);
-        $news->create();
-        $this->view->render('news.php', compact('id'));
+        //$news->create();
+        $this->view->render('news.php', compact('text'));
       }
       public function getForm() {
         $request = new Request();
@@ -55,7 +55,7 @@ PHP 7 <=
 
 ## Модель
 
-В App/Models в находятся модели. При помощи моделей осуществляется взаимодействие с Бобъект
+В App/Models в находятся модели. При помощи моделей осуществляется взаимодействие с БД
 
   <?php
 
@@ -94,16 +94,16 @@ PHP 7 <=
 
     public function create()
     {
-        $cars = R::dispense('cars'); //передаем название таблицы users
+        $cars = R::dispense('cars'); //передаем название таблицы cars
 
         $cars->mercedes = $data['mercedes'];
         $cars->lada = $data['lada'];
 
-        R::store($cars); // сохраняем объект в таблице
+        R::store($cars); // сохраняем объект с данными в таблице
     }
   }
 
-Для установки соединения с БД в метод модели или в конструктор нужно поместить InitConnection::initConnection(); Таким образом запускается подключение к БД для выполнения запросов.
+Для установки соединения с БД в метод модели или в конструктор нужно поместить InitConnection::initConnection(); таким образом запускается подключение к БД для выполнения запросов.
 Все классы модели должны наследоваться от базового класса RedBeanPHP\SimpleModel. Для работы с базой данных используется RedBeanPHP ORM. https://redbeanphp.com.
 Настройки для подключения к БД в корневом каталоге в файле config.ini.
 
@@ -184,7 +184,7 @@ $response->send();
 ### Использование CURL:
 
 $request = $request->curl("https://example.com/account/login/action","POST");
- //Установка заголовком передачи/возврата
+ //Установка заголовков передачи/возврата
 $request->setReturnHeader(true)->setReturnTransfer(true);
 //Установить поля ввода
 $request->setFields([
