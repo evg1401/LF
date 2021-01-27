@@ -1,4 +1,4 @@
-# lightFramework
+# lightFramework 
 
 PHP 7 <=
 Для установки через composer: composer require lf001/framework.
