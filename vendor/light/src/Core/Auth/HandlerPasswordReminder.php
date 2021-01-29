@@ -11,24 +11,13 @@ use RedBeanPHP\R;
  * Class HandlerPasswordReminder
  * @package Core\Auth
  */
-class HandlerPasswordReminder
+class HandlerPasswordReminder extends Auth
 {
 
     /**
      * @var string
      */
     protected string $email;
-
-
-    /**
-     * HandlerPasswordReminder constructor.
-     */
-    public function __construct()
-    {
-        InitConnection::initConnection(); //установка соединения с БД
-        if (!R::testConnection()) die('No DB connection!');
-    }
-
 
     /**
      * @param string|null $email
@@ -37,18 +26,20 @@ class HandlerPasswordReminder
      */
     public function passwordRecovery(string $email = null) //Поиск юзера по email, генерация пароля, запись пароля в БД
     {
-        if (R::findOne('auth', 'email = ?', [$email])) {
+        if (R::findOne($this->db['table'], $this->db['columns']['email'] . '= ?', [$email])) {
             $password = uniqid();
             $passwordEncrypt = password_hash($password, PASSWORD_ARGON2I);
-            $id = R::find('auth', 'email = ?', [$email]);
+            $id = R::find($this->db['table'], $this->db['columns']['email'] . '= ?', [$email]);
             $userId = $id[1]['id'];
-            $savePassword = R::findOne('auth', $userId);
+            $savePassword = R::findOne($this->db['table'], $userId);
             $savePassword->password = $passwordEncrypt;
             R::store($savePassword);
             $this->email = $email;
             $this->sendEmailToken($password);
+            return 'Пароль отправлен на ваш email';
+
         } else {
-            return false;
+            return $email ? 'Пользователь с таким email не найден' : null;
         }
     }
 

@@ -60,4 +60,9 @@ class Login extends Auth
 
         }
     }
+
+    public function logout()
+    {
+
+    }
 }
