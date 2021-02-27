@@ -4,14 +4,19 @@
 namespace Core;
 
 
+/**
+ * Class Controller
+ * @package Core
+ */
 abstract class Controller
 {
-    protected array $route;
-    public object $view;
-
-    public function __construct($route)
+    /**
+     * @param $view
+     * @param array|null $param
+     * @return View
+     */
+    public function render($view, array $param = null): View
     {
-        $this->route = $route;
-        $this->view = new View($route);
+        return new View($view, $param);
     }
 }

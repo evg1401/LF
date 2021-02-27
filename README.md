@@ -1,7 +1,6 @@
-# lightFramework
+# lightFramework v.2.0
 
-PHP 7 <=
-Для установки через composer: composer require lf001/framework.
+PHP 8 <=
 
 ## Роутинг
 
@@ -35,7 +34,7 @@ PHP 7 <=
     {
       public function post($id, $category, $post)
       {
-        $this->view->render('post.php', compact('id', 'category', 'post')); /* метод render подключает файл с представлением, первым аргументом отправляет название файла представления с расширением (php, html, html.twig и т.д.), (или category/category.php) относительно дирректории App/Views; вторым аргументом передает массив с данными, которые нужно отправить в представление. */
+        $this->render('post.html.twig', compact('id', 'category', 'post')); /* метод render подключает файл с представлением, первым аргументом отправляет название файла представления с расширением (php, html, html.twig и т.д.), (или category/category.php) относительно дирректории App/Views; вторым аргументом передает массив с данными, которые нужно отправить в представление. */
       }
 
       public function news($id)
@@ -44,12 +43,12 @@ PHP 7 <=
         $text = $news->readNews($id);
         //$news->writeNews($text);
         //$news->create();
-        $this->view->render('news.php', compact('text'));
+        $this->render('news.html.twig', compact('text'));
       }
       public function getForm() {
         $request = new Request();
         $form = $request->getPost('text');
-        $this->view->render('form.php);
+        $this->render('form.html.twig);
       }
     }
 

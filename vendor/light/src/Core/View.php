@@ -4,56 +4,61 @@ namespace Core;
 
 use Twig\Environment;
 
+/**
+ * Class View
+ * @package Core
+ */
 class View
 {
-    public array $route;
-    public Environment $twig;
 
-    public function __construct($route)
+    /**
+     * View constructor.
+     * @param string $view
+     * @param array $param
+     */
+    public function __construct(protected string $view, array $param)
     {
-        $this->route = $route;
         $loader = new \Twig\Loader\FilesystemLoader('App\Views');
         $this->twig = new Environment($loader);
+        $this->render($param);
     }
 
-    public function require($view, $param = null): void
+    /**
+     * @param $param
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
+    public function render($param)
     {
-        if (is_array($param)) {
-
-            extract($param, EXTR_OVERWRITE);
-
-        } else {
-            $param = null;
-        }
-
-        if (file_exists('App/Views/' . $view)) {
-            require 'App/Views/' . $view;
-        } else {
-            self::HttpResponse(404);
-        }
-    }
-
-    public function render($view, $var = null)
-    {
-        if (!file_exists('App/Views/' . $view)) {
+        if (!file_exists('App/Views/' . $this->view)) {
 
             View::HttpResponse(404);
         }
 
-        $render = $var !== null ? $this->twig->render($view, $var) : $this->twig->render($view);
+        $render = $param !== null ? $this->twig->render($this->view, $param) : $this->twig->render($this->view);
         echo $render;
     }
 
+
+    public static function controllerError()
+    {
+        echo 'Ошибка: в файле ' . ROOT . DIRECTORY_SEPARATOR . 'Routes' . DIRECTORY_SEPARATOR . 'routes.php указан не существующий контроллер.';
+    }
+
+
+    public static function methodError()
+    {
+        echo 'Ошибка: в файле ' . ROOT . DIRECTORY_SEPARATOR . 'Routes' . DIRECTORY_SEPARATOR . 'routes.php указан не существующий метод контроллера.';
+    }
+
+    /**
+     * @param $code
+     */
     public static function HttpResponse($code): void
     {
         http_response_code($code);
         require ROOT . '/App/Views/Errors/' . $code . '.php';
-        exit();
-    }
-
-    public function redirect($url): void
-    {
-        header("Location: $url");
         exit();
     }
 }
