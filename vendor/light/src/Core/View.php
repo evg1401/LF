@@ -61,4 +61,10 @@ class View
         require ROOT . '/App/Views/Errors/' . $code . '.php';
         exit();
     }
+
+    public static function redirect($url): void
+    {
+        header("Location: /" . $url);
+        exit();
+    }
 }

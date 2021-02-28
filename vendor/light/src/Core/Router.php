@@ -2,6 +2,7 @@
 
 namespace Core;
 
+use Core\Auth\checkAuth;
 use RedBeanPHP\R;
 
 /**
@@ -42,14 +43,14 @@ class Router
         }
     }
 
+
     /**
      * @return bool
      */
-    public function matches(): bool
+    public function matches()
     {
         foreach ($this->routes as $route => $parameters) {
-            if (preg_match("#^" . $route . "(\/[A-Za-z0-9]+){0,}?$#", $this->uri, $matches)) {
-                // $this->tmp = explode('/', $this->uri);
+            if (preg_match("#^" . $route . "(\/[A-Z-z0-9]+){0,}?$#", $this->uri, $matches)) {
                 $this->route = $route;
                 $this->internalRouter = $parameters;
             }
@@ -76,6 +77,14 @@ class Router
             //и замена на "\", корректный для полного названия класса
             $controllerName = '\App\Controllers\\' . $this->internalRouter['controller'];
             $action = $this->internalRouter['action'];
+
+            if (in_array('Auth', $this->internalRouter)) {
+                $checkAuth = new checkAuth();
+                if (!$checkAuth->check()) {
+
+                   View::redirect('login');
+                }
+            }
 
             if (class_exists($controllerName)) {
 
