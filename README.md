@@ -1,4 +1,4 @@
-# lightFramework v.2.0
+# lightFramework
 
 PHP 8 <=
 
