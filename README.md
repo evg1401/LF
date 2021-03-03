@@ -67,12 +67,6 @@ PHP 8 <=
 
   class News extends SimpleModel
   {
-    public function __construct()
-    {
-        InitConnection::initConnection(); //установка соединения с БД
-        if (!R::testConnection()) die('No DB connection!');
-    }
-
     public function writeNews($text)
     {
 
@@ -102,8 +96,7 @@ PHP 8 <=
         R::store($cars); // сохраняем объект с данными в таблице
     }
   }
-
-Для установки соединения с БД в метод модели или в конструктор нужно поместить InitConnection::initConnection(); таким образом запускается подключение к БД для выполнения запросов.
+  
 Все классы модели должны наследоваться от базового класса RedBeanPHP\SimpleModel. Для работы с базой данных используется RedBeanPHP ORM. https://redbeanphp.com.
 Настройки для подключения к БД в корневом каталоге в файле config.ini.
 
