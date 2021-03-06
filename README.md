@@ -61,7 +61,6 @@ PHP 8 <=
 
   namespace App\Models;
 
-  use Core\InitConnection;
   use RedBeanPHP\R;
   use RedBeanPHP\SimpleModel;
 
@@ -96,7 +95,7 @@ PHP 8 <=
         R::store($cars); // сохраняем объект с данными в таблице
     }
   }
-  
+
 Все классы модели должны наследоваться от базового класса RedBeanPHP\SimpleModel. Для работы с базой данных используется RedBeanPHP ORM. https://redbeanphp.com.
 Настройки для подключения к БД в корневом каталоге в файле config.ini.
 

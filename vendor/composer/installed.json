@@ -7,18 +7,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/gabordemooij/redbean.git",
-                "reference": "88505efe78b62f85a4421a63f0ad0d1355bf627f"
+                "reference": "fe7616999347e5f128fdf45f39a7ef590dc244e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gabordemooij/redbean/zipball/88505efe78b62f85a4421a63f0ad0d1355bf627f",
-                "reference": "88505efe78b62f85a4421a63f0ad0d1355bf627f",
+                "url": "https://api.github.com/repos/gabordemooij/redbean/zipball/fe7616999347e5f128fdf45f39a7ef590dc244e8",
+                "reference": "fe7616999347e5f128fdf45f39a7ef590dc244e8",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.4"
             },
-            "time": "2021-02-26T23:00:23+00:00",
+            "time": "2021-03-01T11:45:07+00:00",
             "default-branch": true,
             "type": "library",
             "installation-source": "source",
@@ -56,12 +56,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "a6bfc5a1416f0dde1f53b7737b2cf983352737b8"
+                "reference": "0745f820eed6cb92603ca44a9c137ff8ce315e86"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/a6bfc5a1416f0dde1f53b7737b2cf983352737b8",
-                "reference": "a6bfc5a1416f0dde1f53b7737b2cf983352737b8",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/0745f820eed6cb92603ca44a9c137ff8ce315e86",
+                "reference": "0745f820eed6cb92603ca44a9c137ff8ce315e86",
                 "shasum": ""
             },
             "conflict": {
@@ -127,6 +127,7 @@
                 "ezsystems/platform-ui-assets-bundle": ">=4.2,<4.2.3",
                 "ezsystems/repository-forms": ">=2.3,<2.3.2.1",
                 "ezyang/htmlpurifier": "<4.1.1",
+                "facade/ignition": "<=2.5.1,>=2.0|<=1.16.13",
                 "firebase/php-jwt": "<2",
                 "flarum/sticky": ">=0.1-beta.14,<=0.1-beta.15",
                 "flarum/tags": "<=0.1-beta.13",
@@ -343,7 +344,7 @@
                 "zfcampus/zf-apigility-doctrine": ">=1,<1.0.3",
                 "zfr/zfr-oauth2-server-module": "<0.1.2"
             },
-            "time": "2021-02-26T20:02:39+00:00",
+            "time": "2021-03-03T23:02:20+00:00",
             "type": "metapackage",
             "notification-url": "https://packagist.org/downloads/",
             "license": [

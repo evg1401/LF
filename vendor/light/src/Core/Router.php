@@ -3,7 +3,6 @@
 namespace Core;
 
 use Core\Auth\checkAuth;
-use RedBeanPHP\R;
 
 /**
  * Class Router
@@ -37,10 +36,6 @@ class Router
     {
         $this->routes = require(ROOT . '/Routes/routes.php');
         $this->uri = trim($_SERVER['REQUEST_URI'], '/');
-        if (file_exists(ROOT . '/config.ini')) {
-            InitConnection::initConnection(); //установка соединения с БД
-            if (!R::testConnection()) die('Нет соединения с БД! Проверьте корректность настроек соединения с БД в конфигурационном файле ' . ROOT . DIRECTORY_SEPARATOR . 'config.ini');
-        }
     }
 
 

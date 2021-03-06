@@ -19,7 +19,7 @@
       array (
         0 => '9999999-dev',
       ),
-      'reference' => '88505efe78b62f85a4421a63f0ad0d1355bf627f',
+      'reference' => 'fe7616999347e5f128fdf45f39a7ef590dc244e8',
     ),
     'lf001/framework' => 
     array (
@@ -37,7 +37,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'a6bfc5a1416f0dde1f53b7737b2cf983352737b8',
+      'reference' => '0745f820eed6cb92603ca44a9c137ff8ce315e86',
     ),
     'symfony/polyfill-ctype' => 
     array (
