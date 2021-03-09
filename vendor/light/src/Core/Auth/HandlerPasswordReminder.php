@@ -18,6 +18,10 @@ class HandlerPasswordReminder extends Auth
      * @var string
      */
     protected string $email;
+    /**
+     * @var object
+     */
+    private object $result;
 
     /**
      * @param string|null $email
@@ -30,7 +34,12 @@ class HandlerPasswordReminder extends Auth
             $password = uniqid();
             $passwordEncrypt = password_hash($password, PASSWORD_ARGON2I);
             $id = R::find($this->db['table'], $this->db['columns']['email'] . '= ?', [$email]);
-            $userId = $id[1]['id'];
+
+            foreach ($id as $value) {
+                $this->result = $value;
+            }
+
+            $userId = $this->result['id'];
             $savePassword = R::findOne($this->db['table'], $userId);
             $savePassword->password = $passwordEncrypt;
             R::store($savePassword);

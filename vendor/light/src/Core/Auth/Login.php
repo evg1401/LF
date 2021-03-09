@@ -15,6 +15,11 @@ use RedBeanPHP\R;
 class Login extends Auth
 {
     /**
+     * @var object
+     */
+    private object $result;
+
+    /**
      * @param $username
      * @param $password
      * @return bool|string
@@ -28,20 +33,24 @@ class Login extends Auth
 
             $find = R::find($this->db['table'], 'username = ?', [$this->data['username']]);
 
-            if ($find[1]['username'] === $this->data['username'] && password_verify($this->data['password'], $find[1]['password'])) {
+            foreach ($find as $value) {
+                $this->result = $value;
+            }
 
-                setcookie('username', $find[1]['username']);
+            if ($this->result['username'] === $this->data['username'] && password_verify($this->data['password'], $this->result['password'])) {
+
+                setcookie('username', $this->result['username']);
 
                 if ($rememberMe === 'yes') {
-                    if ($find[1]['remember_token'] !== '') {
+                    if ($this->result['remember_token'] !== '') {
 
-                        setcookie('rememberToken', $find[1]['remember_token'], time() + $this->cookieExpires);
+                        setcookie('rememberToken', $this->result['remember_token'], time() + $this->cookieExpires);
 
                     } else {
 
                         $rememberToken = bin2hex(random_bytes(16));
                         setcookie('rememberToken', $rememberToken, time() + $this->cookieExpires);
-                        $addRememberToken = R::load($this->db['table'], $find[1]['id']);
+                        $addRememberToken = R::load($this->db['table'], $this->result['id']);
                         $addRememberToken->remember_token = $rememberToken;
                         R::store($addRememberToken);
 
@@ -70,7 +79,12 @@ class Login extends Auth
             setcookie('rememberToken', '', time() - $this->cookieExpires);
             setcookie('username', '', time() - $this->cookieExpires);
             $find = R::find($this->db['table'], 'username = ?', [$_COOKIE['username']]);
-            $addRememberToken = R::load($this->db['table'], $find[1]['id']);
+
+            foreach ($find as $value) {
+                $this->result = $value;
+            }
+
+            $addRememberToken = R::load($this->db['table'], $this->result['id']);
             $addRememberToken->remember_token = $rememberToken;
             R::store($addRememberToken);
             View::redirect($this->logoutRedirect);

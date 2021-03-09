@@ -6,6 +6,14 @@ use RedBeanPHP\R;
 
 class checkAuth extends Auth
 {
+    /**
+     * @var object
+     */
+    private object $result;
+
+    /**
+     * @return bool
+     */
     public function check()
     {
         if (isset($_COOKIE['username'])) {
@@ -15,7 +23,13 @@ class checkAuth extends Auth
         } else {
             if (isset($_COOKIE['rememberToken'])) {
                 if ($find = R::find($this->db['table'], 'rememberToken = ?', [$_COOKIE['rememberToken']])) {
-                    setcookie('username', $find[1]['username']);
+
+                    foreach ($find as $value) {
+
+                        $this->result = $value;
+                    }
+
+                    setcookie('username', $this->result['username']);
                     return true;
                 }
             }
