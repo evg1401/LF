@@ -45,7 +45,7 @@ class Router
     public function matches()
     {
         foreach ($this->routes as $route => $parameters) {
-            if (preg_match("#^" . $route . "(\/[A-Z-z0-9]+){0,}?$#", $this->uri, $matches)) {
+            if (preg_match("#^" . $route . "(\/[A-Za-z0-9]+){0,}?$#", $this->uri, $matches)) {
                 $this->route = $route;
                 $this->internalRouter = $parameters;
             }
@@ -60,7 +60,7 @@ class Router
             }
 
             $this->parameters = explode('/', $this->tmpParameters);
-
+            
             return true;
         }
     }
@@ -77,7 +77,7 @@ class Router
                 $checkAuth = new checkAuth();
                 if (!$checkAuth->check()) {
 
-                   View::redirect('login');
+                    View::redirect('login');
                 }
             }
 
